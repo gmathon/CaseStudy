@@ -212,9 +212,9 @@ public class DataSource {
         return null;
     }
 
-    public List<cdw_sapp_creditcard> query_DisplayCustTransDate(int ssn, int year11, int year12, int month11, int month12, int day11, int day12){
+    public List<cdw_sapp_creditcard> query_DisplayCustTransDate(String  ssn, int year11, int year12, int month11, int month12,  int day11, int day12){
         try{
-            query_DisplayCustTransaction.setInt(1,ssn);
+            query_DisplayCustTransaction.setString(1,ssn);
             query_DisplayCustTransaction.setInt(2,year11);
             query_DisplayCustTransaction.setInt(3,year12);
             query_DisplayCustTransaction.setInt(4,month11);
@@ -225,10 +225,24 @@ public class DataSource {
             List<cdw_sapp_creditcard> displayCustTran = new ArrayList<cdw_sapp_creditcard>();
             while(results.next()){
                 cdw_sapp_creditcard cdw_sapp_creditcard = new cdw_sapp_creditcard();
-                cdw_sapp_creditcard.set
-            }
+                cdw_sapp_creditcard.setTRANSACTION_ID(results.getInt(1));
+                cdw_sapp_creditcard.setDAY(results.getInt(2));
+                cdw_sapp_creditcard.setMONTH(results.getInt(3));
+                cdw_sapp_creditcard.setYEAR(results.getInt(4));
+                cdw_sapp_creditcard.setCREDIT_CARD_NO(results.getString(5));
+                cdw_sapp_creditcard.setCUST_SSN(results.getInt(6));
+                cdw_sapp_creditcard.setBRANCH_CODE(results.getInt(7));
+                cdw_sapp_creditcard.setTRANSACTION_TYPE(results.getString(8));
+                cdw_sapp_creditcard.setTRANSCATION_VALUE(results.getString(9));
 
+                displayCustTran.add(cdw_sapp_creditcard);
+            }
+            return displayCustTran;
+
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
         }
+        return null;
     }
 
 //         public static final String QUERY_DISPLAYCUSTTRANSACTIONBY_DATE_PREP = " SELECT * FROM " + TABLE_CDW_SAPP_CREDITCARD +

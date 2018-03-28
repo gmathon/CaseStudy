@@ -6,6 +6,11 @@ public class cdw_sapp_creditcard{
     private int MONTH;
     private int YEAR;
     private String Count;
+    private String CREDIT_CARD_NO;
+    private int CUST_SSN;
+    private int BRANCH_CODE;
+    private String TRANSACTION_TYPE;
+    private String TRANSCATION_VALUE;
 
     public String getCount() {
         return Count;
@@ -88,11 +93,7 @@ public class cdw_sapp_creditcard{
     }
 
     //stored as string because you shouldn't be able to do operations on this.
-    private String CREDIT_CARD_NO;
-    private int CUST_SSN;
-    private int BRANCH_CODE;
-    private String TRANSACTION_TYPE;
-    private String TRANSCATION_VALUE;
+
 
 
     @Override
