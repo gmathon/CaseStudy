@@ -22,6 +22,7 @@ public class Main {
             System.out.println("2: Display all Transactions by zip, month and year ");
             System.out.println("3: Display transaction type sum");
             System.out.println("4: Display transaction value based on card, month and year");
+            System.out.println("5: Display Transactions made by ssn, year, month");
             Scanner scanner = new Scanner(System.in);
             choice = scanner.nextInt();
             switch (choice) {
@@ -119,10 +120,37 @@ public class Main {
                     }catch (Exception e){
                         System.out.println("error " + e.getMessage());
                     }
+                    break;
+                case 5:
+                    System.out.println("Transaction value based on ssn, year and month");
+                    String ssn = scanner.next();
+                    int year11 = scanner.nextInt();
+                    int year12 = scanner.nextInt();
+                    int month11 = scanner.nextInt();
+                    int month12 = scanner.nextInt();
+                    int day11 = scanner.nextInt();
+                    int day12 = scanner.nextInt();
+
+                    List<cdw_sapp_creditcard> transactionbyssn = datasource.query_DisplayCustTransDate(ssn,year11,year12,month11,month12,day11,day12);
+                    try{
+                        if(transactionbyssn.isEmpty()){
+                            System.out.println("No values found");
+                            return;
+                        }else {
+                            for(cdw_sapp_creditcard cdw_sapp_creditcard : transactionbyssn){
+                                System.out.println(cdw_sapp_creditcard);
+                            }
+                        }
+                    }catch (Exception e){
+                        System.out.println("error in code : " + e.getMessage());
+                    }
+                    break;
 
             }
 
-        } while (choice !=5);
+
+
+        } while (choice !=6);
     }
 }
 
