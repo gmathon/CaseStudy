@@ -23,6 +23,7 @@ public class Main {
             System.out.println("3: Display transaction type sum");
             System.out.println("4: Display transaction value based on card, month and year");
             System.out.println("5: Display Transactions made by ssn, year, month");
+            System.out.println("6: Display Transaction value by state");
             Scanner scanner = new Scanner(System.in);
             choice = scanner.nextInt();
             switch (choice) {
@@ -39,7 +40,7 @@ public class Main {
                         if (custDetails.isEmpty()) {
                             System.out.println(" Customer does not exist for this SSN:  ");
                             return;
-                        }
+                        }else
                         for (cdw_sapp_customer customer : custDetails) {
                             System.out.println(customer);
                         }
@@ -122,7 +123,7 @@ public class Main {
                     }
                     break;
                 case 5:
-                    System.out.println("Transaction value based on ssn, year and month");
+                    System.out.println("Transaction value based on ssn, year range and month range and day range");
                     String ssn = scanner.next();
                     int year11 = scanner.nextInt();
                     int year12 = scanner.nextInt();
@@ -146,11 +147,36 @@ public class Main {
                     }
                     break;
 
+                case 6:
+                    System.out.println("Transaction value based on Type: ");
+                    String state = scanner.next();
+
+                    List<cdw_sapp_creditcard>TranStat = new ArrayList<cdw_sapp_creditcard>();
+                    List<cdw_sapp_branch>TranBranch = new ArrayList<cdw_sapp_branch>();
+                    datasource.query_DISPLAY_BYSTATE(state,TranStat,TranBranch);
+                    try{
+                        if (TranBranch.isEmpty() || TranStat.isEmpty()){
+                            System.out.println("No transaction: ");
+                            return;
+                        }else{
+                            for (cdw_sapp_creditcard cdw_sapp_creditcard: TranStat){
+                                System.out.println(cdw_sapp_creditcard.getCount() + cdw_sapp_creditcard.getTRANSCATION_VALUE());
+                            }
+//                            for (cdw_sapp_branch cdw_sapp_branch : TranBranch){
+//                                System.out.println(cdw_sapp_branch.getcount() + cdw_sapp_branch.getT);
+                            }
+                        }catch (Exception e ){
+                        System.out.println(e.getMessage());
+
+                    }
+
+
+
             }
 
 
 
-        } while (choice !=6);
+        } while (choice !=7);
     }
 }
 

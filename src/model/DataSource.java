@@ -117,6 +117,7 @@ public class DataSource {
     private PreparedStatement query_DisplayNumTotal;
     private PreparedStatement query_Get_Monthlybill;
     private PreparedStatement query_DisplayCustTransaction;
+    private PreparedStatement query_Transtate;
 
 
     public boolean open() throws IllegalAccessException, InstantiationException {
@@ -132,6 +133,7 @@ public class DataSource {
             query_DisplayNumTotal = conn.prepareStatement(QUERY_DISPLAYNUMTOTALBY_TYPE_PREP);
             query_Get_Monthlybill = conn.prepareStatement(QUERY_GET_MONTHLYBILL_PREP);
             query_DisplayCustTransaction = conn.prepareStatement(QUERY_DISPLAYCUSTTRANSACTIONBY_DATE_PREP);
+            query_Transtate = conn.prepareStatement(QUERY_DISPLAYNUMTOTALBY_STATE_PREP);
 
             // opens connection
             System.out.println(" Connecting to " + DB_NAME + " Database....Connected!");
@@ -212,6 +214,79 @@ public class DataSource {
         return null;
     }
 
+    public void query_DISPLAY_BYSTATE(String state, List<cdw_sapp_creditcard>TransState,List<cdw_sapp_branch>TransBranch){
+        try{
+            query_Transtate.setString(1,state);
+            ResultSet results = query_Transtate.executeQuery();
+
+            System.out.println(query_Transtate);
+            while (results.next()){
+                cdw_sapp_creditcard cdw_sapp_creditcard = new cdw_sapp_creditcard();
+                cdw_sapp_branch cdw_sapp_branch = new cdw_sapp_branch();
+                cdw_sapp_creditcard.setTRANSCATION_VALUE(results.getString(1));
+
+                TransState.add(cdw_sapp_creditcard);
+                TransBranch.add(cdw_sapp_branch);
+
+            }
+
+        }catch (SQLException e){
+            System.out.println("Error in display by transaction type: " + e.getMessage());
+        }
+    }
+                                      //  public static final String QUERY_DISPLAYNUMTOTALBY_STATE_PREP = "SELECT COUNT(*), " + " SUM( " + COLUMN_C_TRANSACTION_VALUE + " ) " +
+    //            " FROM " + TABLE_CDW_SAPP_CREDITCARD + " JOIN " + TABLE_CDW_SAPP_BRANCH + " ON " + TABLE_CDW_SAPP_CREDITCARD + "." + COLUMN_C_BRANCH_CODE + "=" +
+    //            TABLE_CDW_SAPP_BRANCH + "." + COLUMN_BRAMCH_CODE + " WHERE " + TABLE_CDW_SAPP_BRANCH + "." + COLUMN_BRANCH_CITY + " = ? " +
+    //            " GROUP BY " + TABLE_CDW_SAPP_CREDITCARD + "." + COLUMN_C_BRANCH_CODE + ";";
+
+
+    public void query_TransZip(int title2,int month, int year,List<cdw_sapp_creditcard>TransZip,List<cdw_sapp_customer> TransZipcust) {
+        try {
+            query_TransZip.setInt(1, title2);
+            query_TransZip.setInt(2, month);
+            query_TransZip.setInt(3, year);
+            ResultSet results = query_TransZip.executeQuery();
+
+            while (results.next()) {
+                cdw_sapp_creditcard cdw_sapp_creditcard = new cdw_sapp_creditcard();
+                cdw_sapp_customer cdw_sapp_customer = new cdw_sapp_customer();
+                cdw_sapp_creditcard.setTRANSACTION_ID(results.getInt(1));
+                cdw_sapp_creditcard.setDAY(results.getInt(2));
+                cdw_sapp_creditcard.setMONTH(results.getInt(3));
+                cdw_sapp_creditcard.setYEAR(results.getInt(4));
+                cdw_sapp_creditcard.setCREDIT_CARD_NO(results.getString(5));
+                cdw_sapp_creditcard.setCUST_SSN(results.getInt(6));
+                cdw_sapp_creditcard.setBRANCH_CODE(results.getInt(7));
+                cdw_sapp_creditcard.setTRANSACTION_TYPE(results.getString(8));
+                cdw_sapp_creditcard.setTRANSCATION_VALUE(results.getString(9));
+                cdw_sapp_customer.setFIRST_NAME(results.getString(10));
+                cdw_sapp_customer.setMIDDLE_NAME(results.getString(11));
+                cdw_sapp_customer.setLAST_NAME(results.getString(12));
+                cdw_sapp_customer.setCREDIT_CARD_NO(results.getString(13));
+                cdw_sapp_customer.setAPT_NO(results.getString(14));
+                cdw_sapp_customer.setSTREET_NAME(results.getString(15));
+                cdw_sapp_customer.setCUST_CITY(results.getString(16));
+                cdw_sapp_customer.setCUST_STATE(results.getString(17));
+                cdw_sapp_customer.setCUST_COUNTRY(results.getString(18));
+                cdw_sapp_customer.setCUST_ZIP(results.getString(19));
+                cdw_sapp_customer.setCUST_PHONE(results.getInt(20));
+                cdw_sapp_customer.setCUST_EMAIL(results.getString(21));
+
+                TransZip.add(cdw_sapp_creditcard);
+                TransZipcust.add(cdw_sapp_customer);
+            }
+            // return;
+
+        } catch (SQLException e) {
+            System.out.println("Query for Zip code fails " + e.getMessage());
+            e.printStackTrace();
+        }
+
+
+        //return null;
+    }
+
+
     public List<cdw_sapp_creditcard> query_DisplayCustTransDate(String  ssn, int year11, int year12, int month11, int month12,  int day11, int day12){
         try{
             query_DisplayCustTransaction.setString(1,ssn);
@@ -276,59 +351,8 @@ public class DataSource {
     }
 
 
-    //    public static final String QUERY_DISPLAYNUMTOTALBY_TYPE_PREP = "SELECT COUNT(*), " + " SUM( " + COLUMN_C_TRANSACTION_VALUE + " ) " +
-//            " FROM " + TABLE_CDW_SAPP_CREDITCARD + " WHERE " + COLUMN_C_TRANSACTION_TYPE + " = ? " +
-//            " GROUP BY " + COLUMN_C_TRANSACTION_TYPE + ";";
-
-    public void query_TransZip(int title2,int month, int year,List<cdw_sapp_creditcard>TransZip,List<cdw_sapp_customer> TransZipcust) {
-        try {
-            query_TransZip.setInt(1, title2);
-            query_TransZip.setInt(2, month);
-            query_TransZip.setInt(3, year);
-            ResultSet results = query_TransZip.executeQuery();
 
 
-
-            while (results.next()) {
-                cdw_sapp_creditcard cdw_sapp_creditcard = new cdw_sapp_creditcard();
-                cdw_sapp_customer cdw_sapp_customer = new cdw_sapp_customer();
-                cdw_sapp_creditcard.setTRANSACTION_ID(results.getInt(1));
-                cdw_sapp_creditcard.setDAY(results.getInt(2));
-                cdw_sapp_creditcard.setMONTH(results.getInt(3));
-                cdw_sapp_creditcard.setYEAR(results.getInt(4));
-                cdw_sapp_creditcard.setCREDIT_CARD_NO(results.getString(5));
-                cdw_sapp_creditcard.setCUST_SSN(results.getInt(6));
-                cdw_sapp_creditcard.setBRANCH_CODE(results.getInt(7));
-                cdw_sapp_creditcard.setTRANSACTION_TYPE(results.getString(8));
-                cdw_sapp_creditcard.setTRANSCATION_VALUE(results.getString(9));
-                cdw_sapp_customer.setFIRST_NAME(results.getString(10));
-                cdw_sapp_customer.setMIDDLE_NAME(results.getString(11));
-                cdw_sapp_customer.setLAST_NAME(results.getString(12));
-                cdw_sapp_customer.setCREDIT_CARD_NO(results.getString(13));
-                cdw_sapp_customer.setAPT_NO(results.getString(14));
-                cdw_sapp_customer.setSTREET_NAME(results.getString(15));
-                cdw_sapp_customer.setCUST_CITY(results.getString(16));
-                cdw_sapp_customer.setCUST_STATE(results.getString(17));
-                cdw_sapp_customer.setCUST_COUNTRY(results.getString(18));
-                cdw_sapp_customer.setCUST_ZIP(results.getString(19));
-                cdw_sapp_customer.setCUST_PHONE(results.getInt(20));
-                cdw_sapp_customer.setCUST_EMAIL(results.getString(21));
-
-                TransZip.add(cdw_sapp_creditcard);
-                TransZipcust.add(cdw_sapp_customer);
-
-
-
-            }
-           // return;
-
-        } catch (SQLException e) {
-            System.out.println("Query for Zip code fails " + e.getMessage());
-            e.printStackTrace();
-        }
-
-        //return null;
-    }
 
 
 }
