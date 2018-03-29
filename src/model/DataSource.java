@@ -1,11 +1,8 @@
 package model;
 
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class DataSource {
 
@@ -118,6 +115,7 @@ public class DataSource {
     private PreparedStatement query_Get_Monthlybill;
     private PreparedStatement query_DisplayCustTransaction;
     private PreparedStatement query_Transtate;
+    private PreparedStatement query_Update;
 
 
     public boolean open() throws IllegalAccessException, InstantiationException {
@@ -134,6 +132,7 @@ public class DataSource {
             query_Get_Monthlybill = conn.prepareStatement(QUERY_GET_MONTHLYBILL_PREP);
             query_DisplayCustTransaction = conn.prepareStatement(QUERY_DISPLAYCUSTTRANSACTIONBY_DATE_PREP);
             query_Transtate = conn.prepareStatement(QUERY_DISPLAYNUMTOTALBY_STATE_PREP);
+            query_Update = conn.prepareStatement(QUERY_MODIFY_CUSTDETAILS,Statement.RETURN_GENERATED_KEYS);
 
             // opens connection
             System.out.println(" Connecting to " + DB_NAME + " Database....Connected!");
@@ -349,13 +348,48 @@ public class DataSource {
 
         return monthTotal ;
     }
+    public void query_CustMod(String first, String middle, String last, String card, String apt, String street, String city, String state, String country, String zip,
+                              int phone, String email, int ssn){
+        try{
+            query_Update.setString(1,first);
+            query_Update.setString(2,middle);
+            query_Update.setString(3,last);
+            query_Update.setString(4,card);
+            query_Update.setString(5,apt);
+            query_Update.setString(6,street);
+            query_Update.setString(7,city);
+            query_Update.setString(8,state);
+            query_Update.setString(9,country);
+            query_Update.setString(10,zip);
+            query_Update.setInt(11,phone);
+            query_Update.setString(12,email);
+            query_Update.setInt(13,ssn);
+            int results = query_Update.executeUpdate();
+
+            System.out.println(query_Update);
+
+            while (results ==1){
+                cdw_sapp_customer cdw_sapp_customer = new cdw_sapp_customer();
+                cdw_sapp_customer.getFIRST_NAME();
+            }
+        }catch (SQLException e ){
+            System.out.println(e.getMessage());
+        }
+//        return custMod;
+    }}
+
+
+//  public static final String QUERY_MODIFY_CUSTDETAILS = " UPDATE " + TABLE_CDW_SAPP_CUSTOMER + " SET  " + COLUMN_FIRST_NAME + " = ? , " +
+//            COLUMN_MIDDLE_NAME + " = ? , " + COLUMN_LAST_NAME + " = ? , " + COLUMN_C_CREDIT_CARD_NO + " = ? , " + COLUMN_APT_NO + " = ? , " + COLUMN_STREET_NAME +
+//            " = ? , " + COLUMN_CUST_CITY + " = ? , " + COLUMN_CUST_STATE + " = ? , " + COLUMN_CUST_COUNTRY + " = ? , " + COLUMN_CUST_ZIP + " = ? , " +
+//            COLUMN_CUST_PHONE + " = ? , " + COLUMN_CUST_EMAIL + " = ? , " + " WHERE " + COLUMN_SSN + " = ? ; ";
 
 
 
 
 
 
-}
+
 
 
 

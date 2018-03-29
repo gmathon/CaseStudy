@@ -108,7 +108,7 @@ public class cdw_sapp_creditcard{
                 ", BRANCH_CODE=" + BRANCH_CODE +
                 ", TRANSACTION_TYPE='" + TRANSACTION_TYPE + '\'' +
                 ", TRANSCATION_VALUE=" + TRANSCATION_VALUE +
-                ", count= " + Count+
+                ", count = " + Count+
                 '}';
     }
 }
