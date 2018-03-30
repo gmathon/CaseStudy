@@ -1,8 +1,4 @@
 package model;
-
-
-import com.sun.org.apache.xpath.internal.SourceTree;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -89,7 +85,7 @@ public class Main {
                         String title3 = scanner.next();
 
                         List<cdw_sapp_creditcard> transtotal = datasource.query_DisplayNumTotal(title3);
-                        transtotal = datasource.query_DisplayNumTotal(title3);
+//                        transtotal = datasource.query_DisplayNumTotal(title3);
                         try {
                             if (transtotal.isEmpty()) {
                                 System.out.println("Customer does not have transcation: ");
@@ -151,24 +147,26 @@ public class Main {
                         break;
 
                     case 6:
-                        System.out.println("Transaction value based on Type: ");
+                        System.out.println("Transaction value based on State: ");
                         String state = scanner.next();
 
                         List<cdw_sapp_creditcard> TranStat = new ArrayList<cdw_sapp_creditcard>();
                         List<cdw_sapp_branch> TranBranch = new ArrayList<cdw_sapp_branch>();
                         datasource.query_DISPLAY_BYSTATE(state, TranStat, TranBranch);
                         try {
-                            if (TranBranch.isEmpty() || TranStat.isEmpty()) {
+                            if (TranBranch.isEmpty() ) {
                                 System.out.println("No transaction: ");
                                 return;
                             } else {
-                                for (cdw_sapp_creditcard cdw_sapp_creditcard : TranStat) {
-                                    System.out.println(cdw_sapp_creditcard.getCount() + cdw_sapp_creditcard.getTRANSCATION_VALUE());
+                                for (cdw_sapp_creditcard cdw_sapp_creditcard : TranStat ) {
+                                    System.out.println("The Count is: " + cdw_sapp_creditcard.getCount() + " The Transcation is "+cdw_sapp_creditcard.getTRANSCATION_VALUE());
+
                                 }
 //                            for (cdw_sapp_branch cdw_sapp_branch : TranBranch){
-//                                System.out.println(cdw_sapp_branch.getcount() + cdw_sapp_branch.getT);
-                            }
-                        } catch (Exception e) {
+//                                System.out.println(" The City is: "+cdw_sapp_branch.getBRANCH_CITY());
+//                            }
+
+                        }} catch (Exception e) {
                             System.out.println(e.getMessage());
 
                         }

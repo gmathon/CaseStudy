@@ -67,4 +67,17 @@ public class cdw_sapp_branch {
 
     private String BRANCH_PHONE;
 
+
+    @Override
+    public String toString() {
+        return "cdw_sapp_branch{" +
+                "BRANCH_CODE=" + BRANCH_CODE +
+                ", BRANCH_NAME='" + BRANCH_NAME + '\'' +
+                ", BRANCH_STREET='" + BRANCH_STREET + '\'' +
+                ", BRANCH_CITY='" + BRANCH_CITY + '\'' +
+                ", BRANCH_STATE='" + BRANCH_STATE + '\'' +
+                ", BRANCH_ZIP=" + BRANCH_ZIP +
+                ", BRANCH_PHONE='" + BRANCH_PHONE + '\'' +
+                '}';
+    }
 }

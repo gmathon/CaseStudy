@@ -72,10 +72,12 @@ public class DataSource {
     //JOIN cdw_sapp_branch ON cdw_sapp_creditcard.BRANCH_CODE=CDW_SAPP_BRANCH.BRANCH_CODE
     //WHERE cdw_sapp_branch.BRANCH_STATE = "NY"
     //GROUP BY cdw_sapp_creditcard.BRANCH_CODE;
-    public static final String QUERY_DISPLAYNUMTOTALBY_STATE_PREP = "SELECT COUNT(*), " + " SUM( " + COLUMN_C_TRANSACTION_VALUE + " ) " +
+    public static final String QUERY_DISPLAYNUMTOTALBY_STATE_PREP = "SELECT " +" COUNT(*), " + " SUM( " + COLUMN_C_TRANSACTION_VALUE + " ) " +
             " FROM " + TABLE_CDW_SAPP_CREDITCARD + " JOIN " + TABLE_CDW_SAPP_BRANCH + " ON " + TABLE_CDW_SAPP_CREDITCARD + "." + COLUMN_C_BRANCH_CODE + "=" +
-            TABLE_CDW_SAPP_BRANCH + "." + COLUMN_BRAMCH_CODE + " WHERE " + TABLE_CDW_SAPP_BRANCH + "." + COLUMN_BRANCH_CITY + " = ? " +
+            TABLE_CDW_SAPP_BRANCH + "." + COLUMN_BRAMCH_CODE + " WHERE " + TABLE_CDW_SAPP_BRANCH + "." + COLUMN_BRANCH_STATE + " = ? " +
             " GROUP BY " + TABLE_CDW_SAPP_CREDITCARD + "." + COLUMN_C_BRANCH_CODE + ";";
+
+   // public static final String QUERY_DISPLAYNUMTOTALBY_STATE_PREP = "SELECT COUNT(*) FROM CDW_SAPP_BRANCH WHERE BRANCH_STATE = ?; ";
 
 
     //display number of total vlaues of transcation for given type (1.2)
@@ -104,6 +106,8 @@ public class DataSource {
             COLUMN_C_MONTH + " BETWEEN ? AND ? AND " + COLUMN_C_DAY + " BETWEEN ? AND ? " +
             " ORDER BY " + COLUMN_C_YEAR + "," + COLUMN_C_MONTH + "," + COLUMN_C_DAY + ";";
 
+    public static final String QUERY_FIRSTN = "SELECT " + COLUMN_FIRST_NAME + " FROM " + TABLE_CDW_SAPP_CUSTOMER + " WHERE " + COLUMN_SSN + " = ?";
+
 
     //connection object created using .getconnection method
     public Connection conn;
@@ -116,7 +120,7 @@ public class DataSource {
     private PreparedStatement query_DisplayCustTransaction;
     private PreparedStatement query_Transtate;
     private PreparedStatement query_Update;
-
+//    private PreparedStatement query_name;
 
     public boolean open() throws IllegalAccessException, InstantiationException {
 
@@ -132,7 +136,8 @@ public class DataSource {
             query_Get_Monthlybill = conn.prepareStatement(QUERY_GET_MONTHLYBILL_PREP);
             query_DisplayCustTransaction = conn.prepareStatement(QUERY_DISPLAYCUSTTRANSACTIONBY_DATE_PREP);
             query_Transtate = conn.prepareStatement(QUERY_DISPLAYNUMTOTALBY_STATE_PREP);
-            query_Update = conn.prepareStatement(QUERY_MODIFY_CUSTDETAILS,Statement.RETURN_GENERATED_KEYS);
+            query_Update = conn.prepareStatement(QUERY_MODIFY_CUSTDETAILS, Statement.RETURN_GENERATED_KEYS);
+//            query_name = conn.prepareStatement(QUERY_FIRSTN);
 
             // opens connection
             System.out.println(" Connecting to " + DB_NAME + " Database....Connected!");
@@ -149,6 +154,30 @@ public class DataSource {
 
     public void close() {
         try {
+            if (query_GetCusDetails != null) {
+                conn.close();
+            }
+            if (query_TransZip != null) {
+                conn.close();
+            }
+            if (query_DisplayNumTotal != null) {
+                conn.close();
+            }
+//            if (query_name != null) {
+//                conn.close();
+//            }
+            if (query_Transtate != null) {
+                conn.close();
+            }
+            if (query_DisplayCustTransaction != null) {
+                conn.close();
+            }
+            if (query_Get_Monthlybill != null) {
+                conn.close();
+            }
+            if (query_Update != null) {
+                conn.close();
+            }
             if (conn != null) {
                 conn.close();
             }
@@ -213,33 +242,39 @@ public class DataSource {
         return null;
     }
 
-    public void query_DISPLAY_BYSTATE(String state, List<cdw_sapp_creditcard>TransState,List<cdw_sapp_branch>TransBranch){
-        try{
-            query_Transtate.setString(1,state);
+    public void query_DISPLAY_BYSTATE(String state, List<cdw_sapp_creditcard> TransState, List<cdw_sapp_branch> TransBranch) {
+        try {
+            query_Transtate.setString(1, state);
             ResultSet results = query_Transtate.executeQuery();
 
             System.out.println(query_Transtate);
-            while (results.next()){
+            if(results.next()==false) {
+                System.out.println("There is no State by this name");
+                return;
+            }
+            while (results.next()) {
                 cdw_sapp_creditcard cdw_sapp_creditcard = new cdw_sapp_creditcard();
                 cdw_sapp_branch cdw_sapp_branch = new cdw_sapp_branch();
-                cdw_sapp_creditcard.setTRANSCATION_VALUE(results.getString(1));
-
+                cdw_sapp_branch cdw_sapp_branch1 = new cdw_sapp_branch();
+                cdw_sapp_creditcard.setTRANSCATION_VALUE(results.getString(2));
+                cdw_sapp_creditcard.setCount(results.getString(1));
+//                cdw_sapp_branch.setBRANCH_CITY(results.getString(1));
                 TransState.add(cdw_sapp_creditcard);
                 TransBranch.add(cdw_sapp_branch);
 
             }
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Error in display by transaction type: " + e.getMessage());
         }
     }
-                                      //  public static final String QUERY_DISPLAYNUMTOTALBY_STATE_PREP = "SELECT COUNT(*), " + " SUM( " + COLUMN_C_TRANSACTION_VALUE + " ) " +
+    //  public static final String QUERY_DISPLAYNUMTOTALBY_STATE_PREP = "SELECT COUNT(*), " + " SUM( " + COLUMN_C_TRANSACTION_VALUE + " ) " +
     //            " FROM " + TABLE_CDW_SAPP_CREDITCARD + " JOIN " + TABLE_CDW_SAPP_BRANCH + " ON " + TABLE_CDW_SAPP_CREDITCARD + "." + COLUMN_C_BRANCH_CODE + "=" +
     //            TABLE_CDW_SAPP_BRANCH + "." + COLUMN_BRAMCH_CODE + " WHERE " + TABLE_CDW_SAPP_BRANCH + "." + COLUMN_BRANCH_CITY + " = ? " +
     //            " GROUP BY " + TABLE_CDW_SAPP_CREDITCARD + "." + COLUMN_C_BRANCH_CODE + ";";
 
 
-    public void query_TransZip(int title2,int month, int year,List<cdw_sapp_creditcard>TransZip,List<cdw_sapp_customer> TransZipcust) {
+    public void query_TransZip(int title2, int month, int year, List<cdw_sapp_creditcard> TransZip, List<cdw_sapp_customer> TransZipcust) {
         try {
             query_TransZip.setInt(1, title2);
             query_TransZip.setInt(2, month);
@@ -286,18 +321,18 @@ public class DataSource {
     }
 
 
-    public List<cdw_sapp_creditcard> query_DisplayCustTransDate(String  ssn, int year11, int year12, int month11, int month12,  int day11, int day12){
-        try{
-            query_DisplayCustTransaction.setString(1,ssn);
-            query_DisplayCustTransaction.setInt(2,year11);
-            query_DisplayCustTransaction.setInt(3,year12);
-            query_DisplayCustTransaction.setInt(4,month11);
-            query_DisplayCustTransaction.setInt(5,month12);
-            query_DisplayCustTransaction.setInt(6,day11);
-            query_DisplayCustTransaction.setInt(7,day12);
+    public List<cdw_sapp_creditcard> query_DisplayCustTransDate(String ssn, int year11, int year12, int month11, int month12, int day11, int day12) {
+        try {
+            query_DisplayCustTransaction.setString(1, ssn);
+            query_DisplayCustTransaction.setInt(2, year11);
+            query_DisplayCustTransaction.setInt(3, year12);
+            query_DisplayCustTransaction.setInt(4, month11);
+            query_DisplayCustTransaction.setInt(5, month12);
+            query_DisplayCustTransaction.setInt(6, day11);
+            query_DisplayCustTransaction.setInt(7, day12);
             ResultSet results = query_DisplayCustTransaction.executeQuery();
             List<cdw_sapp_creditcard> displayCustTran = new ArrayList<cdw_sapp_creditcard>();
-            while(results.next()){
+            while (results.next()) {
                 cdw_sapp_creditcard cdw_sapp_creditcard = new cdw_sapp_creditcard();
                 cdw_sapp_creditcard.setTRANSACTION_ID(results.getInt(1));
                 cdw_sapp_creditcard.setDAY(results.getInt(2));
@@ -313,7 +348,7 @@ public class DataSource {
             }
             return displayCustTran;
 
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return null;
@@ -328,7 +363,7 @@ public class DataSource {
         List<cdw_sapp_creditcard> monthTotal = new ArrayList<cdw_sapp_creditcard>();
         try {
             query_Get_Monthlybill.setString(1, cerd);
-            query_Get_Monthlybill.setString(2,month);
+            query_Get_Monthlybill.setString(2, month);
             query_Get_Monthlybill.setString(3, year);
             ResultSet results = query_Get_Monthlybill.executeQuery();
             System.out.println(query_Get_Monthlybill);
@@ -346,51 +381,40 @@ public class DataSource {
         }
 
 
-        return monthTotal ;
+        return monthTotal;
     }
+
     public void query_CustMod(String first, String middle, String last, String card, String apt, String street, String city, String state, String country, String zip,
-                              int phone, String email, int ssn){
-        try{
-            query_Update.setString(1,first);
-            query_Update.setString(2,middle);
-            query_Update.setString(3,last);
-            query_Update.setString(4,card);
-            query_Update.setString(5,apt);
-            query_Update.setString(6,street);
-            query_Update.setString(7,city);
-            query_Update.setString(8,state);
-            query_Update.setString(9,country);
-            query_Update.setString(10,zip);
-            query_Update.setInt(11,phone);
-            query_Update.setString(12,email);
-            query_Update.setInt(13,ssn);
+                              int phone, String email, int ssn) {
+        try {
+
+            query_Update.setString(1, first);
+            query_Update.setString(2, middle);
+            query_Update.setString(3, last);
+            query_Update.setString(4, card);
+            query_Update.setString(5, apt);
+            query_Update.setString(6, street);
+            query_Update.setString(7, city);
+            query_Update.setString(8, state);
+            query_Update.setString(9, country);
+            query_Update.setString(10, zip);
+            query_Update.setInt(11, phone);
+            query_Update.setString(12, email);
+            query_Update.setInt(13, ssn);
             int results = query_Update.executeUpdate();
 
             System.out.println(query_Update);
 
-            while (results ==1){
+            while (results == 1) {
                 cdw_sapp_customer cdw_sapp_customer = new cdw_sapp_customer();
                 cdw_sapp_customer.getFIRST_NAME();
             }
-        }catch (SQLException e ){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 //        return custMod;
-    }}
-
-
-//  public static final String QUERY_MODIFY_CUSTDETAILS = " UPDATE " + TABLE_CDW_SAPP_CUSTOMER + " SET  " + COLUMN_FIRST_NAME + " = ? , " +
-//            COLUMN_MIDDLE_NAME + " = ? , " + COLUMN_LAST_NAME + " = ? , " + COLUMN_C_CREDIT_CARD_NO + " = ? , " + COLUMN_APT_NO + " = ? , " + COLUMN_STREET_NAME +
-//            " = ? , " + COLUMN_CUST_CITY + " = ? , " + COLUMN_CUST_STATE + " = ? , " + COLUMN_CUST_COUNTRY + " = ? , " + COLUMN_CUST_ZIP + " = ? , " +
-//            COLUMN_CUST_PHONE + " = ? , " + COLUMN_CUST_EMAIL + " = ? , " + " WHERE " + COLUMN_SSN + " = ? ; ";
-
-
-
-
-
-
-
-
+    }
+}
 
 
 
