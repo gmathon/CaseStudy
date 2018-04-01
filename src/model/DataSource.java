@@ -16,7 +16,7 @@ public class DataSource {
 
     //creating constants of all table and column names
     public static final String TABLE_CDW_SAPP_CREDITCARD = "cdw_sapp_creditcard";
-    public static final String COLUMN_C_TRANSACTION_ID = "TRANSACTION_ID";
+//    public static final String COLUMN_C_TRANSACTION_ID = "TRANSACTION_ID";
     public static final String COLUMN_C_DAY = "DAY";
     public static final String COLUMN_C_MONTH = "MONTH";
     public static final String COLUMN_C_YEAR = "YEAR";
@@ -84,7 +84,7 @@ public class DataSource {
     //SELECT COUNT(*), SUM(TRANSACTION_VALUE) FROM cdw_sapp_creditcard WHERE
     //TRANSACTION_TYPE = " ? "
     //GROUP BY TRANSACTION_TYPE
-    public static final String QUERY_DISPLAYNUMTOTALBY_TYPE_PREP = "SELECT COUNT(*), " + " SUM( " + COLUMN_C_TRANSACTION_VALUE + " ) " +
+    public static final String QUERY_DISPLAYNUMTOTALBY_TYPE_PREP = "SELECT DISTINCT COUNT(*), " + " SUM( " + COLUMN_C_TRANSACTION_VALUE + " ) " +
             " FROM " + TABLE_CDW_SAPP_CREDITCARD + " WHERE " + COLUMN_C_TRANSACTION_TYPE + " = ? " +
             " GROUP BY " + COLUMN_C_TRANSACTION_TYPE + ";";
 
@@ -106,7 +106,6 @@ public class DataSource {
             COLUMN_C_MONTH + " BETWEEN ? AND ? AND " + COLUMN_C_DAY + " BETWEEN ? AND ? " +
             " ORDER BY " + COLUMN_C_YEAR + "," + COLUMN_C_MONTH + "," + COLUMN_C_DAY + ";";
 
-    public static final String QUERY_FIRSTN = "SELECT " + COLUMN_FIRST_NAME + " FROM " + TABLE_CDW_SAPP_CUSTOMER + " WHERE " + COLUMN_SSN + " = ?";
 
 
     //connection object created using .getconnection method
@@ -137,7 +136,6 @@ public class DataSource {
             query_DisplayCustTransaction = conn.prepareStatement(QUERY_DISPLAYCUSTTRANSACTIONBY_DATE_PREP);
             query_Transtate = conn.prepareStatement(QUERY_DISPLAYNUMTOTALBY_STATE_PREP);
             query_Update = conn.prepareStatement(QUERY_MODIFY_CUSTDETAILS, Statement.RETURN_GENERATED_KEYS);
-//            query_name = conn.prepareStatement(QUERY_FIRSTN);
 
             // opens connection
             System.out.println(" Connecting to " + DB_NAME + " Database....Connected!");

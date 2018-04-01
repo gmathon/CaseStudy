@@ -122,20 +122,20 @@ public class cdw_sapp_customer {
 
     @Override
     public String toString() {
-        return "cdw_sapp_customer{" +
-                "FIRST_NAME='" + FIRST_NAME + '\'' +
-                ", MIDDLE_NAME='" + MIDDLE_NAME + '\'' +
-                ", LAST_NAME='" + LAST_NAME + '\'' +
+        return "Customer Details[" +
+                "FIRST NAME='" + FIRST_NAME + '\'' +
+                ", MIDDLE NAME='" + MIDDLE_NAME + '\'' +
+                ", LAST NAME='" + LAST_NAME + '\'' +
                 ", SSN=" + SSN +
-                ", CREDIT_CARD_NO='" + CREDIT_CARD_NO + '\'' +
-                ", APT_NO='" + APT_NO + '\'' +
-                ", STREET_NAME='" + STREET_NAME + '\'' +
-                ", CUST_CITY='" + CUST_CITY + '\'' +
-                ", CUST_STATE='" + CUST_STATE + '\'' +
-                ", CUST_COUNTRY='" + CUST_COUNTRY + '\'' +
-                ", CUST_ZIP='" + CUST_ZIP + '\'' +
-                ", CUST_PHONE=" + CUST_PHONE +
-                ", CUST_EMAIL='" + CUST_EMAIL + '\'' +
-                '}';
+                ", CREDIT CARD NO='" + CREDIT_CARD_NO + '\'' +
+                ", APT NO='" + APT_NO + '\'' +
+                ", STREET NAME='" + STREET_NAME + '\'' +
+                ", CITY='" + CUST_CITY + '\'' +
+                ", STATE='" + CUST_STATE + '\'' +
+                ", COUNTRY='" + CUST_COUNTRY + '\'' +
+                ", ZIP='" + CUST_ZIP + '\'' +
+                ", PHONE=" + CUST_PHONE +
+                ", EMAIL='" + CUST_EMAIL + '\'' +
+                ']';
     }
 }
