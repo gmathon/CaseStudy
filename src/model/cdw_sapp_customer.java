@@ -5,7 +5,7 @@ public class cdw_sapp_customer {
     private String FIRST_NAME;
     private String MIDDLE_NAME;
     private String LAST_NAME;
-    private int SSN=0;
+    private String SSN;
     private String CREDIT_CARD_NO;
     private String APT_NO;
     private String STREET_NAME;
@@ -40,11 +40,11 @@ public class cdw_sapp_customer {
         this.LAST_NAME = LAST_NAME;
     }
 
-    public int getSSN() {
+    public String getSSN() {
         return SSN;
     }
 
-    public void setSSN(int SSN) {
+    public void setSSN(String SSN) {
         this.SSN = SSN;
     }
 
@@ -119,6 +119,7 @@ public class cdw_sapp_customer {
     public void setCUST_EMAIL(String CUST_EMAIL) {
         this.CUST_EMAIL = CUST_EMAIL;
     }
+
 
     @Override
     public String toString() {

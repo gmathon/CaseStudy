@@ -92,7 +92,7 @@ public class DataSource {
     public static final String QUERY_MODIFY_CUSTDETAILS = " UPDATE " + TABLE_CDW_SAPP_CUSTOMER + " SET  " + COLUMN_FIRST_NAME + " = ? , " +
             COLUMN_MIDDLE_NAME + " = ? , " + COLUMN_LAST_NAME + " = ? , " + COLUMN_C_CREDIT_CARD_NO + " = ? , " + COLUMN_APT_NO + " = ? , " + COLUMN_STREET_NAME +
             " = ? , " + COLUMN_CUST_CITY + " = ? , " + COLUMN_CUST_STATE + " = ? , " + COLUMN_CUST_COUNTRY + " = ? , " + COLUMN_CUST_ZIP + " = ? , " +
-            COLUMN_CUST_PHONE + " = ? , " + COLUMN_CUST_EMAIL + " = ? , " + " WHERE " + COLUMN_SSN + " = ? ; ";
+            COLUMN_CUST_PHONE + " = ? , " + COLUMN_CUST_EMAIL + " = ?  " + " WHERE " + COLUMN_SSN + " = ? ; ";
 
 
     //generate monthly bill for credit card (2.3)
@@ -198,7 +198,7 @@ public class DataSource {
                 cdw_sapp_customer.setFIRST_NAME(results.getString(1));
                 cdw_sapp_customer.setMIDDLE_NAME(results.getString(2));
                 cdw_sapp_customer.setLAST_NAME(results.getString(3));
-                cdw_sapp_customer.setSSN(results.getInt(4));
+                cdw_sapp_customer.setSSN(results.getString(4));
                 cdw_sapp_customer.setCREDIT_CARD_NO(results.getString(5));
                 cdw_sapp_customer.setAPT_NO(results.getString(6));
                 cdw_sapp_customer.setSTREET_NAME(results.getString(7));
@@ -404,8 +404,7 @@ public class DataSource {
             System.out.println(query_Update);
 
             while (results == 1) {
-                cdw_sapp_customer cdw_sapp_customer = new cdw_sapp_customer();
-                cdw_sapp_customer.getFIRST_NAME();
+
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

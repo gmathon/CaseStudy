@@ -80,7 +80,21 @@ public class Main {
                                     System.out.println(creditcard);
                                 }
                             for (cdw_sapp_customer customer : TransZipcust) {
-                                System.out.println(customer);  //fix this by write new output ssn cuz error with ssn
+                                System.out.println("Customer Details[" +
+                                        "FIRST NAME='" + customer.getFIRST_NAME() + '\'' +
+                                                ", MIDDLE NAME='" + customer.getMIDDLE_NAME() + '\'' +
+                                                ", LAST NAME='" + customer.getLAST_NAME() + '\'' +
+                                                ", SSN=" + customer.getCREDIT_CARD_NO() +
+                                                ", CREDIT CARD NO='" + customer.getAPT_NO()+ '\'' +
+                                                ", APT NO='" + customer.getSTREET_NAME() + '\'' +
+                                                ", STREET NAME='" + customer.getCUST_CITY() + '\'' +
+                                                ", CITY='" + customer.getCUST_STATE() + '\'' +
+                                                ", STATE='" + customer.getCUST_COUNTRY() + '\'' +
+                                                ", COUNTRY='" + customer.getCUST_ZIP()+ '\'' +
+                                                ", ZIP='" + customer.getCUST_PHONE()+ '\'' +
+                                                ", PHONE=" + customer.getCUST_EMAIL()+
+
+                                                ']');//fix this by write new output ssn cuz error with ssn
                             }
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
@@ -146,7 +160,7 @@ public class Main {
                         System.out.println("Enter Customer SSN");
                         String title = scanner.next();
                         List<cdw_sapp_customer> custDetails = datasource.query_GetCusDetails(title);
-                        custDetails = datasource.query_GetCusDetails(title);
+//                        custDetails = datasource.query_GetCusDetails(title);
                     {
                         try {
                             if (custDetails.isEmpty()) {
@@ -194,6 +208,7 @@ public class Main {
                         int ssn1 = scanner.nextInt();
                         System.out.println("enter ssn");
                         datasource.query_CustMod(first, middle, last, card, apt, street, city, state1, country, zip, phone, email, ssn1);
+
                         break;
 
                     case 3:
@@ -247,6 +262,8 @@ public class Main {
             } while (choice != 5);
         }
     }
+
+
 }
 
 

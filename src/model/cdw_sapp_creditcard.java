@@ -98,7 +98,7 @@ public class cdw_sapp_creditcard{
 
     @Override
     public String toString() {
-        return "cdw_sapp_creditcard{" +
+        return "Creditcard Details[" +
                 "TRANSACTION_ID=" + TRANSACTION_ID +
                 ", DAY=" + DAY +
                 ", MONTH=" + MONTH +
@@ -109,6 +109,6 @@ public class cdw_sapp_creditcard{
                 ", TRANSACTION_TYPE='" + TRANSACTION_TYPE + '\'' +
                 ", TRANSCATION_VALUE=" + TRANSCATION_VALUE +
                 ", count = " + Count+
-                '}';
+                ']';
     }
 }
