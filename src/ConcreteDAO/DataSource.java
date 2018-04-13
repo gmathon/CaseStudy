@@ -46,7 +46,7 @@ public class DataSource extends queries {
             query_Transtate = conn.prepareStatement(QUERY_DISPLAYNUMTOTALBY_STATE_PREP);
             query_Update = conn.prepareStatement(QUERY_MODIFY_CUSTDETAILS, Statement.RETURN_GENERATED_KEYS);
 
-            query_mod = conn.prepareStatement(modifyP + vari + modifys);
+            query_mod = conn.prepareStatement(modifyP);
             stopu = conn.prepareStatement(stopupdate);
             staru = conn.prepareStatement(startupdate);
 

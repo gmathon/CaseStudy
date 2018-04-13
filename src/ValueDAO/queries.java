@@ -88,8 +88,7 @@ public class queries {
             " = ? , " + COLUMN_CUST_CITY + " = ? , " + COLUMN_CUST_STATE + " = ? , " + COLUMN_CUST_COUNTRY + " = ? , " + COLUMN_CUST_ZIP + " = ? , " +
             COLUMN_CUST_PHONE + " = ? , " + COLUMN_CUST_EMAIL + " = ?  " + " WHERE " + COLUMN_SSN + " = ? ; ";
 
-    public static final String  modifyP = "UPDATE " + TABLE_CDW_SAPP_CUSTOMER + " SET ";
-    public static final String modifys=  " = ? where " +  COLUMN_SSN + " = ?; ";
+    public static final String  modifyP = "UPDATE " + TABLE_CDW_SAPP_CUSTOMER + " SET FIRST_NAME = ? where " +  COLUMN_SSN + " = ?; ";
 
     //start and stop safe mode for mysql to be able to edit without Key
     public static final String stopupdate = " SET SQL_SAFE_UPDATES = 0; ";
