@@ -50,20 +50,20 @@ public class Main {
                 " 2: Customer Module " + "\n" +
                 "*************************\n";
 
-        String modifyc = "*************************\n"+" 1: Change FirstName "+"\n"+
-                " 2: Change MiddleName  "+"\n" +
-                " 3: Change LastName  "+"\n"+
-                " 4: Change SSN  "+"\n"+
-                " 5: Change Credit Card No."+"\n"+
-                " 6: Change Apt No. "+"\n"+
-                " 7: Change Street Name "+"\n"+
-                " 8: Change City "+"\n"+
-                " 9: Change State "+"\n"+
-                " 10: Change Country "+"\n"+
-                " 11: Change Zip "+"\n"+
-                " 12: Change Phone "+"\n"+
-                " 13: Change Email "+"\n"+
-                " 14: EXIT"+"\n"+
+        String modifyc = "*************************\n" + " 1: Change FirstName " + "\n" +
+                " 2: Change MiddleName  " + "\n" +
+                " 3: Change LastName  " + "\n" +
+                " 4: Change SSN  " + "\n" +
+                " 5: Change Credit Card No." + "\n" +
+                " 6: Change Apt No. " + "\n" +
+                " 7: Change Street Name " + "\n" +
+                " 8: Change City " + "\n" +
+                " 9: Change State " + "\n" +
+                " 10: Change Country " + "\n" +
+                " 11: Change Zip " + "\n" +
+                " 12: Change Phone " + "\n" +
+                " 13: Change Email " + "\n" +
+                " 14: EXIT" + "\n" +
                 "*************************\n";
 
 
@@ -104,19 +104,19 @@ public class Main {
                             for (cdw_sapp_customer customer : TransZipcust) {
                                 System.out.println("Customer Details[" +
                                         "FIRST NAME='" + customer.getFIRST_NAME() + '\'' +
-                                                ", MIDDLE NAME='" + customer.getMIDDLE_NAME() + '\'' +
-                                                ", LAST NAME='" + customer.getLAST_NAME() + '\'' +
-                                                ", SSN=" + customer.getCREDIT_CARD_NO() +
-                                                ", CREDIT CARD NO='" + customer.getAPT_NO()+ '\'' +
-                                                ", APT NO='" + customer.getSTREET_NAME() + '\'' +
-                                                ", STREET NAME='" + customer.getCUST_CITY() + '\'' +
-                                                ", CITY='" + customer.getCUST_STATE() + '\'' +
-                                                ", STATE='" + customer.getCUST_COUNTRY() + '\'' +
-                                                ", COUNTRY='" + customer.getCUST_ZIP()+ '\'' +
-                                                ", ZIP='" + customer.getCUST_PHONE()+ '\'' +
-                                                ", PHONE=" + customer.getCUST_EMAIL()+
+                                        ", MIDDLE NAME='" + customer.getMIDDLE_NAME() + '\'' +
+                                        ", LAST NAME='" + customer.getLAST_NAME() + '\'' +
+                                        ", SSN=" + customer.getCREDIT_CARD_NO() +
+                                        ", CREDIT CARD NO='" + customer.getAPT_NO() + '\'' +
+                                        ", APT NO='" + customer.getSTREET_NAME() + '\'' +
+                                        ", STREET NAME='" + customer.getCUST_CITY() + '\'' +
+                                        ", CITY='" + customer.getCUST_STATE() + '\'' +
+                                        ", STATE='" + customer.getCUST_COUNTRY() + '\'' +
+                                        ", COUNTRY='" + customer.getCUST_ZIP() + '\'' +
+                                        ", ZIP='" + customer.getCUST_PHONE() + '\'' +
+                                        ", PHONE=" + customer.getCUST_EMAIL() +
 
-                                                ']');//fix this by write new output ssn cuz error with ssn
+                                        ']');//fix this by write new output ssn cuz error with ssn
                             }
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
@@ -196,7 +196,6 @@ public class Main {
                             System.out.println(e.getMessage());
                             e.printStackTrace();
                         }
-
                     }
                     break;
 
@@ -205,82 +204,87 @@ public class Main {
                         long ssn1;
 
                         System.out.println("ENTER SSN to start change");
-                         ssn1 = scanner.nextLong();
+                        ssn1 = scanner.nextLong();
                         boolean exited = false;
-                        while(!exited) {
+                        while (!exited) {
                             System.out.println(modifyc);
                             int i = scanner.nextInt();
-                            switch (i) {
-                                case 1:
-                                    System.out.println("Enter " + queries.COLUMN_FIRST_NAME);
-                                    first = scanner.next();
-                                    datasource.Query_modify(queries.COLUMN_FIRST_NAME,first, ssn1);
-                                    break;
-                                case 2:
-                                    System.out.println("Enter " + queries.COLUMN_MIDDLE_NAME);
-                                    first = scanner.next();
-                                    datasource.Query_modify(queries.COLUMN_MIDDLE_NAME, first, ssn1);
-                                    break;
-                                case 3:
-                                    System.out.println("Enter " + queries.COLUMN_LAST_NAME);
-                                    first = scanner.next();
-                                    datasource.Query_modify(queries.COLUMN_LAST_NAME,first, ssn1);
-                                    break;
-                                case 4:
-                                    System.out.println("Enter " + queries.COLUMN_SSN);
-                                    first = scanner.next();
-                                    datasource.Query_modify(queries.COLUMN_SSN,first, ssn1);
-                                    break;
-                                case 5:
-                                    System.out.println("Enter " + queries.COLUMN_CREDIT_CARD);
-                                    first = scanner.next();
-                                    datasource.Query_modify(queries.COLUMN_CREDIT_CARD, first, ssn1);
-                                    break;
-                                case 6:
-                                    System.out.println("Enter " + queries.COLUMN_APT_NO);
-                                    first = scanner.next();
-                                    datasource.Query_modify(queries.COLUMN_APT_NO,first, ssn1);
-                                    break;
-                                case 7:
-                                    System.out.println("Enter " + queries.COLUMN_STREET_NAME);
-                                    first = scanner.next();
-                                    datasource.Query_modify(queries.COLUMN_STREET_NAME,first, ssn1);
-                                    break;
-                                case 8:
-                                    System.out.println("Enter " + queries.COLUMN_CUST_CITY);
-                                    first = scanner.next();
-                                    datasource.Query_modify(queries.COLUMN_CUST_CITY, first, ssn1);
-                                    break;
-                                case 9:
-                                    System.out.println("Enter " + queries.COLUMN_CUST_STATE);
-                                    first = scanner.next();
-                                    datasource.Query_modify(queries.COLUMN_CUST_STATE,first, ssn1);
-                                    break;
-                                case 10:
-                                    System.out.println("Enter " + queries.COLUMN_CUST_COUNTRY);
-                                    first = scanner.next();
-                                    datasource.Query_modify(queries.COLUMN_CUST_COUNTRY,first, ssn1);
-                                    break;
-                                case 11:
-                                    System.out.println("Enter " + queries.COLUMN_CUST_ZIP);
-                                    first = scanner.next();
-                                    datasource.Query_modify(queries.COLUMN_CUST_ZIP,first, ssn1);
-                                    break;
-                                case 12:
-                                    System.out.println("Enter " + queries.COLUMN_CUST_PHONE);
-                                    first = scanner.next();
-                                    datasource.Query_modify(queries.COLUMN_CUST_PHONE, first, ssn1);
-                                    break;
-                                case 13:
-                                    System.out.println("Enter " + queries.COLUMN_CUST_EMAIL);
-                                    first = scanner.next();
-                                    datasource.Query_modify(queries.COLUMN_CUST_EMAIL,first, ssn1);
-                                    break;
-                                case 14:
+                            if (i != 14) {
+                                switch (i) {
 
-                                    exited = true;
-                                    break;
-                            }}
+
+                                    case 1:
+                                        System.out.println("Enter " + queries.COLUMN_FIRST_NAME);
+                                        first = scanner.next();
+                                        datasource.Query_modify(queries.COLUMN_FIRST_NAME, first, ssn1);
+                                        break;
+                                    case 2:
+                                        System.out.println("Enter " + queries.COLUMN_MIDDLE_NAME);
+                                        first = scanner.next();
+                                        datasource.Query_modify(queries.COLUMN_MIDDLE_NAME, first, ssn1);
+                                        break;
+                                    case 3:
+                                        System.out.println("Enter " + queries.COLUMN_LAST_NAME);
+                                        first = scanner.next();
+                                        datasource.Query_modify(queries.COLUMN_LAST_NAME, first, ssn1);
+                                        break;
+                                    case 4:
+                                        System.out.println("Enter " + queries.COLUMN_SSN);
+                                        first = scanner.next();
+                                        datasource.Query_modify(queries.COLUMN_SSN, first, ssn1);
+                                        break;
+                                    case 5:
+                                        System.out.println("Enter " + queries.COLUMN_CREDIT_CARD);
+                                        first = scanner.next();
+                                        datasource.Query_modify(queries.COLUMN_CREDIT_CARD, first, ssn1);
+                                        break;
+                                    case 6:
+                                        System.out.println("Enter " + queries.COLUMN_APT_NO);
+                                        first = scanner.next();
+                                        datasource.Query_modify(queries.COLUMN_APT_NO, first, ssn1);
+                                        break;
+                                    case 7:
+                                        System.out.println("Enter " + queries.COLUMN_STREET_NAME);
+                                        first = scanner.next();
+                                        datasource.Query_modify(queries.COLUMN_STREET_NAME, first, ssn1);
+                                        break;
+                                    case 8:
+                                        System.out.println("Enter " + queries.COLUMN_CUST_CITY);
+                                        first = scanner.next();
+                                        datasource.Query_modify(queries.COLUMN_CUST_CITY, first, ssn1);
+                                        break;
+                                    case 9:
+                                        System.out.println("Enter " + queries.COLUMN_CUST_STATE);
+                                        first = scanner.next();
+                                        datasource.Query_modify(queries.COLUMN_CUST_STATE, first, ssn1);
+                                        break;
+                                    case 10:
+                                        System.out.println("Enter " + queries.COLUMN_CUST_COUNTRY);
+                                        first = scanner.next();
+                                        datasource.Query_modify(queries.COLUMN_CUST_COUNTRY, first, ssn1);
+                                        break;
+                                    case 11:
+                                        System.out.println("Enter " + queries.COLUMN_CUST_ZIP);
+                                        first = scanner.next();
+                                        datasource.Query_modify(queries.COLUMN_CUST_ZIP, first, ssn1);
+                                        break;
+                                    case 12:
+                                        System.out.println("Enter " + queries.COLUMN_CUST_PHONE);
+                                        first = scanner.next();
+                                        datasource.Query_modify(queries.COLUMN_CUST_PHONE, first, ssn1);
+                                        break;
+                                    case 13:
+                                        System.out.println("Enter " + queries.COLUMN_CUST_EMAIL);
+                                        first = scanner.next();
+                                        datasource.Query_modify(queries.COLUMN_CUST_EMAIL, first, ssn1);
+                                        break;
+
+
+                                }
+                            } else {
+                                break;
+                            }
+                        }
 
                         break;
 
