@@ -4,6 +4,7 @@ import ConcreteDAO.DataSource;
 import ValueDAO.cdw_sapp_branch;
 import ValueDAO.cdw_sapp_creditcard;
 import ValueDAO.cdw_sapp_customer;
+import ValueDAO.queries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,19 +24,19 @@ public class Main {
         int input;
         int choice1 = 0;
 
-        String intial = "-------------\n" + " 1: Display Transaction Made by Customer living in given ZipCode" + "\n" +
+        String intial = "*************************\n" + " 1: Display Transaction Made by Customer living in given ZipCode" + "\n" +
                 " 2: Display Number and total values of transaction for given type " + "\n" +
                 " 3: Display Number and total values of Transaction in given State" + "\n" +
                 " 4: EXIT" + "\n" +
-                "-------------\n";
-        String intial2 = "-------------\n" + " 1: Check the existing account details of customer" + "\n" +
+                "*************************\n";
+        String intial2 = "*************************\n" + " 1: Check the existing account details of customer" + "\n" +
                 " 2: Modify Customer Details " + "\n" +
                 " 3: Generate Customer Bill " + "\n" +
                 " 4: Display Transaction between Dates " + "\n" +
                 " 5: EXIT" + "\n" +
-                "-------------\n";
+                "*************************\n";
 
-        String transtype = "-------------\n" + " 1: Education  " + "\n" +
+        String transtype = "*************************\n" + " 1: Education  " + "\n" +
                 " 2: Entertainment  " + "\n" +
                 " 3: Grocery " + "\n" +
                 " 4: Gas  " + "\n" +
@@ -43,25 +44,27 @@ public class Main {
                 " 6: Test  " + "\n" +
                 " 7: HealthCare " + "\n" +
                 "\n" +
-                "-------------\n";
+                "*************************\n";
 
-        String intial1 = "-------------\n" + " 1: Transaction Module" + "\n" +
+        String intial1 = "*************************\n" + " 1: Transaction Module" + "\n" +
                 " 2: Customer Module " + "\n" +
-                "-------------\n";
+                "*************************\n";
 
-        String modifyc = "-------------\n"+" 1: Change FirstName "+"\n"+
+        String modifyc = "*************************\n"+" 1: Change FirstName "+"\n"+
                 " 2: Change MiddleName  "+"\n" +
                 " 3: Change LastName  "+"\n"+
-                " 4: Change StreetName  "+"\n"+
-                " 5: Change Apartment Number "+"\n"+
-                " 6: Change City "+"\n"+
-                " 7: Change State "+"\n"+
-                " 8: Change Country "+"\n"+
-                " 9: Change Zip "+"\n"+
-                " 10: Change Email "+"\n"+
-                " 11: Change Phone "+"\n"+
-                " 12: EXIT"+"\n"+
-                "-------------\n";
+                " 4: Change SSN  "+"\n"+
+                " 5: Change Credit Card No."+"\n"+
+                " 6: Change Apt No. "+"\n"+
+                " 7: Change Street Name "+"\n"+
+                " 8: Change City "+"\n"+
+                " 9: Change State "+"\n"+
+                " 10: Change Country "+"\n"+
+                " 11: Change Zip "+"\n"+
+                " 12: Change Phone "+"\n"+
+                " 13: Change Email "+"\n"+
+                " 14: EXIT"+"\n"+
+                "*************************\n";
 
 
         System.out.println("Please Pick Module: ");
@@ -198,20 +201,8 @@ public class Main {
                     break;
 
                     case 2:
-                        String firstName;
-                        String middleName;
-                        String lastName;
+                        String first;
                         long ssn1;
-                        String creditCardNo;
-                        String streetName;
-                        String aptNo;
-                        String city;
-                        String state;
-                        String country;
-                        String zip;
-                        String email;
-                        int phone;
-
 
                         System.out.println("ENTER SSN to start change");
                          ssn1 = scanner.nextLong();
@@ -221,55 +212,75 @@ public class Main {
                             int i = scanner.nextInt();
                             switch (i) {
                                 case 1:
-                                    System.out.println("ENTER FIRST NAME");
-                                    firstName = scanner.next();
-                                    datasource.Query_modify("FIRST_NAME",firstName, ssn1);
+                                    System.out.println("Enter " + queries.COLUMN_FIRST_NAME);
+                                    first = scanner.next();
+                                    datasource.Query_modify(queries.COLUMN_FIRST_NAME,first, ssn1);
                                     break;
                                 case 2:
-                                    System.out.println("ENTER MIDDLE NAME");
-                                    middleName = scanner.next();
-                                    datasource.Query_modify("MIDDLE_NAME", middleName, ssn1);
+                                    System.out.println("Enter " + queries.COLUMN_MIDDLE_NAME);
+                                    first = scanner.next();
+                                    datasource.Query_modify(queries.COLUMN_MIDDLE_NAME, first, ssn1);
                                     break;
                                 case 3:
+                                    System.out.println("Enter " + queries.COLUMN_LAST_NAME);
+                                    first = scanner.next();
+                                    datasource.Query_modify(queries.COLUMN_LAST_NAME,first, ssn1);
+                                    break;
+                                case 4:
+                                    System.out.println("Enter " + queries.COLUMN_SSN);
+                                    first = scanner.next();
+                                    datasource.Query_modify(queries.COLUMN_SSN,first, ssn1);
+                                    break;
+                                case 5:
+                                    System.out.println("Enter " + queries.COLUMN_CREDIT_CARD);
+                                    first = scanner.next();
+                                    datasource.Query_modify(queries.COLUMN_CREDIT_CARD, first, ssn1);
+                                    break;
+                                case 6:
+                                    System.out.println("Enter " + queries.COLUMN_APT_NO);
+                                    first = scanner.next();
+                                    datasource.Query_modify(queries.COLUMN_APT_NO,first, ssn1);
+                                    break;
+                                case 7:
+                                    System.out.println("Enter " + queries.COLUMN_STREET_NAME);
+                                    first = scanner.next();
+                                    datasource.Query_modify(queries.COLUMN_STREET_NAME,first, ssn1);
+                                    break;
+                                case 8:
+                                    System.out.println("Enter " + queries.COLUMN_CUST_CITY);
+                                    first = scanner.next();
+                                    datasource.Query_modify(queries.COLUMN_CUST_CITY, first, ssn1);
+                                    break;
+                                case 9:
+                                    System.out.println("Enter " + queries.COLUMN_CUST_STATE);
+                                    first = scanner.next();
+                                    datasource.Query_modify(queries.COLUMN_CUST_STATE,first, ssn1);
+                                    break;
+                                case 10:
+                                    System.out.println("Enter " + queries.COLUMN_CUST_COUNTRY);
+                                    first = scanner.next();
+                                    datasource.Query_modify(queries.COLUMN_CUST_COUNTRY,first, ssn1);
+                                    break;
+                                case 11:
+                                    System.out.println("Enter " + queries.COLUMN_CUST_ZIP);
+                                    first = scanner.next();
+                                    datasource.Query_modify(queries.COLUMN_CUST_ZIP,first, ssn1);
+                                    break;
+                                case 12:
+                                    System.out.println("Enter " + queries.COLUMN_CUST_PHONE);
+                                    first = scanner.next();
+                                    datasource.Query_modify(queries.COLUMN_CUST_PHONE, first, ssn1);
+                                    break;
+                                case 13:
+                                    System.out.println("Enter " + queries.COLUMN_CUST_EMAIL);
+                                    first = scanner.next();
+                                    datasource.Query_modify(queries.COLUMN_CUST_EMAIL,first, ssn1);
+                                    break;
+                                case 14:
+
                                     exited = true;
                                     break;
                             }}
-
-
-
-
-
-
-//
-//                        System.out.println("What is new customer information to modify");
-//                        System.out.println("enter first");
-//                        String first = scanner.next();
-//                        System.out.println("enter middle");
-//                        String middle = scanner.next();
-//                        System.out.println("enter last");
-//                        String last = scanner.next();
-//                        System.out.println("enter card no");
-//                        String card = scanner.next();
-//                        System.out.println("enter apt");
-//                        String apt = scanner.next();
-//                        System.out.println("enter street");
-//                        String street = scanner.next();
-//                        System.out.println("enter city");
-//                        String city = scanner.next();
-//                        System.out.println("enter state");
-//                        String state1 = scanner.next();
-//                        System.out.println("enter country");
-//                        String country = scanner.next();
-//                        System.out.println("enter contry");
-//                        String zip = scanner.next();
-//                        System.out.println("enter zip");
-//                        int phone = scanner.nextInt();
-//                        System.out.println("enter phone");
-//                        String email = scanner.next();
-//                        System.out.println("enter email");
-//                        int ssn1 = scanner.nextInt();
-//                        System.out.println("enter ssn");
-//                        datasource.query_CustMod(first, middle, last, card, apt, street, city, state1, country, zip, phone, email, ssn1);
 
                         break;
 

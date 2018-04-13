@@ -88,11 +88,7 @@ public class queries {
             " = ? , " + COLUMN_CUST_CITY + " = ? , " + COLUMN_CUST_STATE + " = ? , " + COLUMN_CUST_COUNTRY + " = ? , " + COLUMN_CUST_ZIP + " = ? , " +
             COLUMN_CUST_PHONE + " = ? , " + COLUMN_CUST_EMAIL + " = ?  " + " WHERE " + COLUMN_SSN + " = ? ; ";
 
-    public static final String  modifyP = "UPDATE " + TABLE_CDW_SAPP_CUSTOMER + " SET FIRST_NAME = ? where " +  COLUMN_SSN + " = ?; ";
 
-    //start and stop safe mode for mysql to be able to edit without Key
-    public static final String stopupdate = " SET SQL_SAFE_UPDATES = 0; ";
-    public static final String startupdate = " SET SQL_SAFE_UPDATES = 1; ";
 
 
     //generate monthly bill for credit card (2.3)
@@ -106,6 +102,14 @@ public class queries {
             COLUMN_C_MONTH + " BETWEEN ? AND ? AND " + COLUMN_C_DAY + " BETWEEN ? AND ? " +
             " ORDER BY " + COLUMN_C_YEAR + "," + COLUMN_C_MONTH + "," + COLUMN_C_DAY + ";";
 
+
+    public static final String  modify1 = "UPDATE " + TABLE_CDW_SAPP_CUSTOMER + " SET ";
+    public static final String  modify2 = " = ? where " +  COLUMN_SSN + " = ?; ";
+
+
+    //start and stop safe mode for mysql to be able to edit without Key
+    public static final String stopupdate = " SET SQL_SAFE_UPDATES = 0; ";
+    public static final String startupdate = " SET SQL_SAFE_UPDATES = 1; ";
 
 
 }

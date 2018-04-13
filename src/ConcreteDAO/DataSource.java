@@ -21,13 +21,13 @@ public class DataSource extends queries {
     private PreparedStatement query_Transtate;
     private PreparedStatement query_Update;
     public PreparedStatement query_mod;
+    public PreparedStatement query_mod1;
     private PreparedStatement stopu;
     private PreparedStatement staru;
 //    private PreparedStatement query_name;
 
     //connection object created using .getconnection method
     public Connection conn;
-    public String vari;
 
 
     public boolean open() throws IllegalAccessException, InstantiationException {
@@ -46,7 +46,7 @@ public class DataSource extends queries {
             query_Transtate = conn.prepareStatement(QUERY_DISPLAYNUMTOTALBY_STATE_PREP);
             query_Update = conn.prepareStatement(QUERY_MODIFY_CUSTDETAILS, Statement.RETURN_GENERATED_KEYS);
 
-            query_mod = conn.prepareStatement(modifyP);
+
             stopu = conn.prepareStatement(stopupdate);
             staru = conn.prepareStatement(startupdate);
 
@@ -74,9 +74,7 @@ public class DataSource extends queries {
             if (query_DisplayNumTotal != null) {
                 conn.close();
             }
-//            if (query_name != null) {
-//                conn.close();
-//            }
+
             if (query_Transtate != null) {
                 conn.close();
             }
@@ -86,7 +84,7 @@ public class DataSource extends queries {
             if (query_Get_Monthlybill != null) {
                 conn.close();
             }
-            if (modifyP != null) {
+            if (modify1 != null) {
                 conn.close();
             }
             if (conn != null) {
@@ -100,13 +98,18 @@ public class DataSource extends queries {
     public void Query_modify(String v, String first, long second){
         try{
             conn.setAutoCommit(false);
+            query_mod = conn.prepareStatement(modify1 + v + modify2 );
+
 
             query_mod.setString(1,first);
             query_mod.setLong(2,second);
+
             stopu.executeQuery();
+            System.out.println(query_mod);
             query_mod.executeUpdate();
             staru.executeQuery();
-            System.out.println("worked");
+
+            System.out.println("Update! Check existing account query to see updated recorded");
             conn.commit();
 
         }catch (SQLException e){
