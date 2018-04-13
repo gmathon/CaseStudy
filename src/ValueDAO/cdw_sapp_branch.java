@@ -1,4 +1,4 @@
-package model;
+package ValueDAO;
 
 public class cdw_sapp_branch {
 
