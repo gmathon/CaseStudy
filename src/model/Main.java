@@ -279,7 +279,6 @@ public class Main {
                                         datasource.Query_modify(queries.COLUMN_CUST_EMAIL, first, ssn1);
                                         break;
 
-
                                 }
                             } else {
                                 break;
